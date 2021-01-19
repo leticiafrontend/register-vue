@@ -2,21 +2,69 @@
   <div class="register">
     <form>
         <label for="name">Nome</label>
-        <input name="name" type="text" placeholder="Nome Completo">
+        <input @change="nameValidation" name="name" type="text" v-model="name" placeholder="Nome Completo">
         <label for="cpf">CPF</label>
-        <input name="cpf" type="text" placeholder="000.000.000-00">
+        <input @change="cpfValidation" name="cpf" type="text" v-model="cpf" placeholder="000.000.000-00">
         <label for="phone">Telefone</label>
-        <input name="phone" type="text" placeholder="+55 11 99999-9999">
+        <input @change="phoneValidation" name="phone" type="text" v-model="phone" placeholder="+55 11 99999-9999">
         <label for="email">Email</label>
-        <input name="email" type="text" placeholder="email@email.com">
-        <button type="submit">Cadastrar</button>
+        <input @change="emailValidation" name="email" type="text" v-model="email" placeholder="email@email.com">
+        <button @click.prevent="registerUser" type="submit">Cadastrar</button>
       </form>
+      <template v-show="{success}">
+        <Notification />
+      </template>
   </div>
 </template>
 
 <script>
+
+import Notification from './Notification.vue'
+
 export default {
-  name: 'FormRegister'
+  name: 'FormRegister',
+  components: {
+    Notification
+  },
+  data(){
+    return{
+      sucess: false,
+    }
+  },
+  methods: {
+    nameValidation(event){
+      const input = event.target
+      if(input.value.length < 3){
+        input.classList.add('error')
+      } else{
+        input.classList.remove('error')
+      }
+    },
+    cpfValidation(event){
+      const input = event.target
+      if(input.value.length < 11){
+        input.classList.add('error')
+      } else{
+        input.classList.remove('error')
+      }
+    },
+    phoneValidation(event){
+      const input = event.target
+      if(input.value.length < 10){
+        input.classList.add('error')
+      } else{
+        input.classList.remove('error')
+      }
+    },
+    emailValidation(event){
+      const input = event.target
+      if(input.value.length < 10){
+        input.classList.add('error')
+      } else{
+        input.classList.remove('error')
+      }
+    }
+  }
 }
 </script>
 

@@ -44,6 +44,10 @@ header{
   font-weight: 600;
 }
 
+#nav .link:hover{
+  opacity: 0.7;
+}
+
 #nav .link:last-child {
   margin-left: 12px;
 }
