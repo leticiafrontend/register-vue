@@ -1,36 +1,39 @@
 <template>
   <div class="register">
     <form @submit.prevent="checkForm">
-        <label for="name">Nome</label>
-        <input @change="nameValidation" name="name" type="text" v-model="name" placeholder="Nome Completo">
-        <template v-if="errorName.length">
-          <p class="error" v-for="error in errorName" :key="error">{{ error }}</p>
-        </template>
-        <label for="cpf">CPF</label>
-        <input @change="cpfValidation" name="cpf" type="text" v-model="cpf" placeholder="000.000.000-00">
-        <template v-if="errorCpf.length">
-          <p class="error" v-for="error in errorCpf" :key="error">{{ error }}</p>
-        </template>
-        <label for="phone">Telefone</label>
-        <input @change="phoneValidation" name="phone" type="text" v-model="phone" placeholder="+55 11 99999-9999">
-        <template v-if="errorPhone.length">
-          <p class="error" v-for="error in errorPhone" :key="error">{{ error }}</p>
-        </template>
-        <label for="email">Email</label>
-        <input @change="emailValidation" name="email" type="text" v-model="email" placeholder="email@email.com">
-        <template v-if="errorEmail.length">
-          <p class="error" v-for="error in errorEmail" :key="error">{{ error }}</p>
-        </template>
-        <button type="submit">Cadastrar</button>
-      </form>
+      <label for="name">Nome</label>
+      <input @change="nameValidation" name="name" type="text" v-model="name" placeholder="Nome Completo">
+      <template v-if="errorName.length">
+        <p class="error" v-for="error in errorName" :key="error">{{ error }}</p>
+      </template>
+      <label for="cpf">CPF</label>
+      <input @change="cpfValidation" name="cpf" type="text" v-model="cpf" placeholder="000.000.000-00" maxlength="11">
+      <template v-if="errorCpf.length">
+        <p class="error" v-for="error in errorCpf" :key="error">{{ error }}</p>
+      </template>
+      <label for="phone">Telefone</label>
+      <input @change="phoneValidation" name="phone" type="text" v-model="phone" placeholder="(11) 99999-9999" maxlength="11">
+      <template v-if="errorPhone.length">
+        <p class="error" v-for="error in errorPhone" :key="error">{{ error }}</p>
+      </template>
+      <label for="email">Email</label>
+      <input @change="emailValidation" name="email" type="text" v-model="email" placeholder="email@email.com">
+      <template v-if="errorEmail.length">
+        <p class="error" v-for="error in errorEmail" :key="error">{{ error }}</p>
+      </template>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <Notification v-if="success" text="Usuário cadastrado com sucesso!" />
   </div>
 </template>
 
 <script>
+import Notification from './Notification.vue'
 
 export default {
   name: 'FormRegister',
   components: {
+    Notification
   },
   data(){
     return{
@@ -43,6 +46,7 @@ export default {
       phone: '',
       email: '',
       userData: JSON.parse(localStorage.getItem('users')) || [],
+      success: false
     }
   },
   methods: {
@@ -127,8 +131,13 @@ export default {
         this.phone = ''
         this.email = ''
 
-        console.log(this.userData)
+        this.activateNotification()
+
       }
+    },
+    activateNotification(){
+      this.success = true
+      setTimeout(() => {this.success = false}, 2000)
     }
   }
 }
@@ -154,6 +163,7 @@ form input{
 
 form input:focus{
   border: 2px solid #A0D2DD !important;
+  outline: none !important;
 }
 
 form input::-webkit-input-placeholder {

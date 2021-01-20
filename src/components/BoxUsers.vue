@@ -1,24 +1,32 @@
 <template>
-  <div v-if="users != 0" class="users">
-    <div class="box-user" v-for="(user, index) in users" :key="index">
+  <div>
+    <Notification v-if="success" text="Usuário apagado com sucesso!"/>
+    <div v-if="users != 0" class="users">
+      <div class="box-user" v-for="(user, index) in users" :key="index">
         <p>Nome: <span>{{user.name}}</span></p>
         <p>CPF: <span>{{user.cpf}}</span></p>
         <p>Telefone: <span>{{user.phone}}</span></p>
         <p>Email: <span>{{user.email}}</span></p>
         <button @click.prevent="deleteUser(index)" type="submit">Apagar</button>
       </div>
-  </div>
-  <div v-else>
-    <p>Sem Usuários</p>
+    </div>
+    <div v-else>
+      <h2>Sem usuários cadastrados!</h2>
+    </div>
   </div>
 </template>
 
 <script>
+import Notification from './Notification.vue';
 export default {
   name: 'BoxUsers',
+  components: { 
+    Notification
+  },
   data() {
     return {
-        users: []
+        users: [],
+        success: false
       };
   },
   methods: {
@@ -37,11 +45,15 @@ export default {
     deleteUser(user){
       this.users.splice(user, 1)
       localStorage.setItem('users', JSON.stringify(this.users))
+      this.activateNotification()
+    },
+    activateNotification(){
+      this.success = true
+      setTimeout(() => {this.success = false}, 2000)
     }
   },
   created(){
     this.listUsers()
-    console.log(this.users.length)
   }
 }
 </script>
@@ -88,5 +100,10 @@ export default {
 .box-user button:hover{
   background-color: #FDEFEE;
   box-shadow: 0px 0px 30px 4px rgb(0 0 0 / 20%);
+}
+
+h2{
+  color: #F05E5C;
+  text-align: center;
 }
 </style>

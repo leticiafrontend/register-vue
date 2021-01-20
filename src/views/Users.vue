@@ -1,7 +1,5 @@
 <template>
-  <div class="users">
-    <BoxUsers />
-  </div>
+  <BoxUsers />
 </template>
 
 <script>
