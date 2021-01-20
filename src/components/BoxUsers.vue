@@ -1,10 +1,10 @@
 <template>
   <div class="users">
-    <div class="box-user">
-        <p>Nome: <span>Letícia Alexandre</span></p>
-        <p>CPF: <span>46158410861</span></p>
-        <p>Telefone: <span>+55 11 94010-6659</span></p>
-        <p>Email: <span>leticia.alesilva@outlook.com</span></p>
+    <div class="box-user" v-for="(user, index) in users" :key="index">
+        <p>Nome: <span>{{user.name}}</span></p>
+        <p>CPF: <span>{{user.cpf}}</span></p>
+        <p>Telefone: <span>{{user.phone}}</span></p>
+        <p>Email: <span>{{user.email}}</span></p>
         <button type="submit">Apagar</button>
       </div>
   </div>
@@ -12,7 +12,29 @@
 
 <script>
 export default {
-  name: 'BoxUsers'
+  name: 'BoxUsers',
+  data() {
+    return {
+        users: []
+      };
+  },
+  methods: {
+    listUsers(){
+      if(!localStorage.users){
+        fetch('https://private-21e8de-rafaellucio.apiary-mock.com/users')
+        .then(response => response.json())
+        .then(response => {
+          this.users = response
+          localStorage.setItem('users', JSON.stringify(this.users))
+        })
+      } else{
+        this.users = JSON.parse(localStorage.getItem('users'))
+      }
+    }
+  },
+  created(){
+    this.listUsers()
+  }
 }
 </script>
 

@@ -42,7 +42,7 @@ export default {
       cpf: '',
       phone: '',
       email: '',
-      userData: [],
+      userData: JSON.parse(localStorage.getItem('users')) || [],
     }
   },
   methods: {
@@ -119,6 +119,8 @@ export default {
       if(this.errorName.length === 0 && this.errorCpf.length === 0 && this.errorPhone.length === 0 && this.errorEmail.length === 0){
 
         this.userData.push({name: this.name, cpf: this.cpf, phone: this.phone, email: this.email})
+
+        localStorage.setItem('users', JSON.stringify(this.userData))
 
         this.name = ''
         this.cpf = ''
