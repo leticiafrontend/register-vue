@@ -6,7 +6,7 @@
   <p align="center">
     Um simples aplicativo de cadastro de usuários
     <br />
-    <a href="https://leticiafrontend.github.io/register-vue/"><strong>Veja o site online »</strong></a>
+    <a href="https://registervue.netlify.app/"><strong>Veja o site online »</strong></a>
     <br />
     <br />
   </p>
