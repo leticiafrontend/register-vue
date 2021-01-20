@@ -14,30 +14,28 @@
 
 ## 📌 Índice
 
-- [Sobre o projeto](#sobre-o-projeto)
-  - [Feito com](#feito-com)
-- [Iniciando o projeto](#iniciando-o-projeto)
+- [Sobre o projeto](#sobre)
+  - [Feito com](#feito)
+- [Iniciando o projeto](#iniciando)
   - [Pré-requisitos](#requisitos-minimos)
   - [Instalação](#instalacao)
-- [License](#license)
 - [Contato](#contato)
 
-## 💻 Sobre o projeto
+## 💻 Sobre o projeto <a name="sobre"></a>
 
 <p align="center">
   <img src="src/assets/screenshot.PNG" alt="screenshot">
 </p>
-<br>
 
 <p>Esse projeto é um simples aplicativo de cadastro de usuários, nele contém duas páginas "Cadastro" e "Usuários", na página de cadastro é possível cadastrar um usuário novo e automáticamente ele é listado na página de usuários, e o dados ficam salvos no `localStorage`, e na página de usuários é possível ver os usuários cadastrados e também tem a opção de apagar o usuário.</p>
 
-### 📝 Feito com
+### 📝 Feito com <a name="feito"></a>
 
 - [JavaScript ES6](http://es6-features.org/)
 - [VueJS](https://vuejs.org/)
 - [Vue Router](https://router.vuejs.org/)
 
-## 🎉 Iniciando o projeto
+## 🎉 Iniciando o projeto <a name="iniciando"></a>
 
 Para clonar e instalar o projeto em sua máquina, siga os passos abaixo.
 
