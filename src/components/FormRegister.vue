@@ -63,7 +63,8 @@ export default {
     },
     cpfValidation(event){
       const input = event.target
-      if(input.value.length < 14){
+      console.log(input.value)
+      if(input.value.length < 11){
         this.errorCpf = []
         input.classList.add('error')
         this.errorCpf.push('Preencha o CPF corretamente!')
@@ -74,7 +75,8 @@ export default {
     },
     phoneValidation(event){
       const input = event.target
-      if(input.value.length < 15){
+      if(input.value.length < 11){
+        console.log(input.value)
         this.errorPhone = []
         input.classList.add('error')
         this.errorPhone.push('Preencha o telefone corretamente!')
