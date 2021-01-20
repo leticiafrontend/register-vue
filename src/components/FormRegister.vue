@@ -63,7 +63,7 @@ export default {
     },
     cpfValidation(event){
       const input = event.target
-      if(input.value.length < 11){
+      if(input.value.length < 14){
         this.errorCpf = []
         input.classList.add('error')
         this.errorCpf.push('Preencha o CPF corretamente!')
@@ -74,7 +74,7 @@ export default {
     },
     phoneValidation(event){
       const input = event.target
-      if(input.value.length < 10){
+      if(input.value.length < 15){
         this.errorPhone = []
         input.classList.add('error')
         this.errorPhone.push('Preencha o telefone corretamente!')
@@ -94,51 +94,6 @@ export default {
         this.errorEmail = []
       }
     },
-    checkForm(event){
-      this.errorName = []
-      this.errorCpf = []
-      this.errorPhone = []
-      this.errorEmail = []
-
-      if(this.name < 3){
-        this.errorName.push('Preencha o nome corretamente!')
-        event.target[0].classList.add('error')
-      }
-
-      if(this.cpf < 11){
-        this.errorCpf.push('Preencha o CPF corretamente!')
-        event.target[1].classList.add('error')
-      }
-
-      if(this.phone < 10){
-        this.errorPhone.push('Preencha o telefone corretamente!')
-        event.target[2].classList.add('error')
-      }
-
-      if(this.email < 10){
-        this.errorEmail.push('Preencha o email corretamente!')
-        event.target[3].classList.add('error')
-      }
-
-      if(this.errorName.length === 0 && this.errorCpf.length === 0 && this.errorPhone.length === 0 && this.errorEmail.length === 0){
-
-        this.userData.push({name: this.name, cpf: this.cpf, phone: this.phone, email: this.email})
-
-        localStorage.setItem('users', JSON.stringify(this.userData))
-
-        this.name = ''
-        this.cpf = ''
-        this.phone = ''
-        this.email = ''
-
-        this.activateNotification()
-
-      }
-    },
-    activateNotification(){
-      this.success = true
-      setTimeout(() => {this.success = false}, 2000)
-    },
     cpfMask(event){
       let insertedCpf = event.target.value
       insertedCpf = insertedCpf + ''
@@ -157,15 +112,60 @@ export default {
       let phone = insertedPhone.replace(/\D/g, "")
       if (phone.length == 11) {
           phone = phone.replace(/(\d{2})(\d)/, "($1) $2")
-              .replace(/(\d{5})(\d)/, "$1-$2")
+            .replace(/(\d{5})(\d)/, "$1-$2")
       } else if(phone.length < 3){
           phone = phone.replace(/(\d{0})(\d)/, "($1$2")
       }else {
           phone = phone.replace(/(\d{2})(\d)/, "($1) $2")
-              .replace(/(\d{4})(\d)/, "$1-$2")
+            .replace(/(\d{4})(\d)/, "$1-$2")
       }
       this.phone = phone.substring(0, 15)
     },
+    checkForm(event){
+      this.errorName = []
+      this.errorCpf = []
+      this.errorPhone = []
+      this.errorEmail = []
+
+      if(this.name < 3){
+        this.errorName.push('Preencha o nome corretamente!')
+        event.target[0].classList.add('error')
+      }
+
+      if(this.cpf < 14){
+        this.errorCpf.push('Preencha o CPF corretamente!')
+        event.target[1].classList.add('error')
+      }
+
+      if(this.phone < 15){
+        this.errorPhone.push('Preencha o telefone corretamente!')
+        event.target[2].classList.add('error')
+      }
+
+      if(this.email < 10){
+        this.errorEmail.push('Preencha o email corretamente!')
+        event.target[3].classList.add('error')
+      }
+
+      if(this.errorName.length === 0 && this.errorCpf.length === 0 && this.errorPhone.length === 0 && this.errorEmail.length === 0){
+
+        this.userData.push({name: this.name, cpf: this.cpf.replace(/\D/g, ""), phone: this.phone.replace(/\D/g, ""), email: this.email})
+
+        localStorage.setItem('users', JSON.stringify(this.userData))
+
+        this.name = ''
+        this.cpf = ''
+        this.phone = ''
+        this.email = ''
+
+        this.activateNotification()
+
+      }
+    },
+    activateNotification(){
+      this.success = true
+      setTimeout(() => {this.success = false}, 2000)
+    }
   }
 }
 </script>
