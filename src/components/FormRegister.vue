@@ -7,12 +7,12 @@
         <p class="error" v-for="error in errorName" :key="error">{{ error }}</p>
       </template>
       <label for="cpf">CPF</label>
-      <input @change="cpfValidation" name="cpf" type="text" v-model="cpf" placeholder="000.000.000-00" maxlength="11">
+      <input @change="cpfValidation" @keyup="cpfMask" name="cpf" type="text" v-model="cpf" placeholder="000.000.000-00" maxlength="14">
       <template v-if="errorCpf.length">
         <p class="error" v-for="error in errorCpf" :key="error">{{ error }}</p>
       </template>
       <label for="phone">Telefone</label>
-      <input @change="phoneValidation" name="phone" type="text" v-model="phone" placeholder="(11) 99999-9999" maxlength="11">
+      <input @change="phoneValidation" @keyup="phoneMask" name="phone" type="text" v-model="phone" placeholder="(11) 99999-9999" maxlength="15">
       <template v-if="errorPhone.length">
         <p class="error" v-for="error in errorPhone" :key="error">{{ error }}</p>
       </template>
@@ -138,7 +138,34 @@ export default {
     activateNotification(){
       this.success = true
       setTimeout(() => {this.success = false}, 2000)
-    }
+    },
+    cpfMask(event){
+      let insertedCpf = event.target.value
+      insertedCpf = insertedCpf + ''
+      insertedCpf = insertedCpf.replace(/\D/g, "")
+      const len = insertedCpf.length
+      if(len < 12){
+        insertedCpf = insertedCpf.replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+      }
+      this.cpf = insertedCpf.substring(0, 18)
+
+    },
+    phoneMask(event){
+      const insertedPhone = event.target.value
+      let phone = insertedPhone.replace(/\D/g, "")
+      if (phone.length == 11) {
+          phone = phone.replace(/(\d{2})(\d)/, "($1) $2")
+              .replace(/(\d{5})(\d)/, "$1-$2")
+      } else if(phone.length < 3){
+          phone = phone.replace(/(\d{0})(\d)/, "($1$2")
+      }else {
+          phone = phone.replace(/(\d{2})(\d)/, "($1) $2")
+              .replace(/(\d{4})(\d)/, "$1-$2")
+      }
+      this.phone = phone.substring(0, 15)
+    },
   }
 }
 </script>
