@@ -7,12 +7,12 @@
         <p class="error" v-for="error in errorName" :key="error">{{ error }}</p>
       </template>
       <label for="cpf">CPF</label>
-      <input @change="cpfValidation" @keyup="cpfMask" name="cpf" type="text" v-model="cpf" placeholder="000.000.000-00" maxlength="14">
+      <input @change="cpfValidation" @keyup="cpfMask" name="cpf" type="tel" v-model="cpf" placeholder="000.000.000-00" maxlength="14">
       <template v-if="errorCpf.length">
         <p class="error" v-for="error in errorCpf" :key="error">{{ error }}</p>
       </template>
       <label for="phone">Telefone</label>
-      <input @change="phoneValidation" @keyup="phoneMask" name="phone" type="text" v-model="phone" placeholder="(11) 99999-9999" maxlength="15">
+      <input @change="phoneValidation" @keyup="phoneMask" name="phone" type="tel" v-model="phone" placeholder="(11) 99999-9999" maxlength="15">
       <template v-if="errorPhone.length">
         <p class="error" v-for="error in errorPhone" :key="error">{{ error }}</p>
       </template>
